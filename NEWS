@@ -1,6 +1,7 @@
 version 1.11-1
 - fixed bug in labels argument of tm_fill
 - fixed bug regarding legend symbols in facets with free scales
+- fixed bug in rasters in view mode
 - improved popup width in view mode
 
 version 1.11
