@@ -38,7 +38,7 @@ If unspecified, the current bounding box of \code{shp} is taken. The bounding bo
 
 \item{line.center.type}{vector of two values specifying how the center of spatial lines is determined Only applicable if \code{shp} is a \code{\link[sp:SpatialLinesDataFrame]{SpatialLines(DataFrame)}}, and symbols, dots, and/or text labels are used for this shape. The two values are:
 \describe{
-\item{\code{"feature", "single"}}{If \code{"feature"} is specified, a pair of coordinates (used for symbols, dots, and text labels) is chosen for each feature (i.e., a row in the \code{\link[sp:SpatialLinesDataFrame]{SpatialLines(DataFrame)}}). If \code{"segment"} is specified, a pair of coordinates is chosed for each line segment.}
+\item{\code{"feature", "single"}}{If \code{"feature"} is specified, a pair of coordinates (used for symbols, dots, and text labels) is chosen for each feature (i.e., a row in the \code{\link[sp:SpatialLinesDataFrame]{SpatialLines(DataFrame)}}). If \code{"segment"} is specified, a pair of coordinates is chosen for each line segment.}
 \item{\code{"midpoint"} or \code{"centroid"}}{The midpoint is the middle point on the line, so the coordinates (used for symbols, dots, and text labels) correspond to the midpoints of the line segments. In case the first value is \code{"feature"}, then per feature, the midpoint of the line segment that is closest to the centroid is taken.}
 }}
 
@@ -102,6 +102,9 @@ tm_layout(bg.color="lightcyan1", inner.margins=c(0,0,.02,0), legend.show = FALSE
 
 # restore current mode
 tmap_mode(current.mode)
+}
+\references{
+Tennekes, M., 2018, {tmap}: Thematic Maps in {R}, Journal of Statistical Software, 84(6), 1-39, \href{https://doi.org/10.18637/jss.v084.i06}{DOI}
 }
 \seealso{
 \code{\link[tmaptools:read_shape]{read_shape}} to read ESRI shape files, \code{\link[tmaptools:set_projection]{set_projection}}, \href{../doc/tmap-nutshell.html}{\code{vignette("tmap-nutshell")}}

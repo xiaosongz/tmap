@@ -1,3 +1,6 @@
+version 1.11-2
+- added references to JSS paper (including citation)
+
 version 1.11-1
 - fixed bug in labels argument of tm_fill
 - fixed bug regarding legend symbols in facets with free scales

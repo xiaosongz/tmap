@@ -20,6 +20,7 @@
 #' @param bg.overlay.alpha not used anymore as of version 1.7. Instead of an overlay, a background color is set. The trade-off between background and basemaps can now be set by \code{basemaps.alpha}
 #' @example ./examples/tm_view.R
 #' @seealso \code{\link{tmap_mode}} and \href{../doc/tmap-modes.html}{\code{vignette("tmap-modes")}}
+#' @references Tennekes, M., 2018, {tmap}: Thematic Maps in {R}, Journal of Statistical Software, 84(6), 1-39, \href{https://doi.org/10.18637/jss.v084.i06}{DOI}
 #' @export
 tm_view <- function(alpha=NA,
 					colorNA=NA,
