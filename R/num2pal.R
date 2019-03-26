@@ -203,7 +203,7 @@ num2pal <- function(x,
 		legend.palette <- sapply(legend.palette, paste, collapse="-")
 		
 		# detransform breaks
-		if (tr == "log10") {
+		if (!is.na(tr) && tr == "log10") {
 			breaks <- 10^breaks
 			b <- 10^b
 		}
@@ -233,7 +233,7 @@ num2pal <- function(x,
 	} else {
 		
 		# detransform breaks
-		if (tr == "log10") {
+		if (!is.na(tr) && tr == "log10") {
 			breaks <- 10^breaks
 		}
 		
