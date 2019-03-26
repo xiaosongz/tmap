@@ -1,4 +1,13 @@
-process_data <- function(data, filter, by, free.scales, is.colors, split.by=TRUE, vary) {
+process_data <- function(data, tr, filter, by, free.scales, is.colors, split.by=TRUE, vary) {
+	
+	data[] <- mapply(function(dt, tri) {
+		if (is.numeric(dt)) {
+			if (!is.na(tri) && tri == "log10") log10(dt) else dt
+		} else {
+			dt
+		}
+	}, data, tr, SIMPLIFY = FALSE)
+	
 	
 	nby <- nlevels(by)
 	cls <- check_tm_classes(data, is.colors)

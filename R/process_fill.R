@@ -67,6 +67,9 @@ process_fill <- function(data, g, gt, gby, z, interactive) {
 	
 	## aesthetics
 	xs <- list(fill = g$col)
-	process_aes(type = "fill", xs, "xfill", "fill", data, g, gt, gby, z, interactive)
+	
+	## transformation
+	trs <- list(fill = g$trans)
+	process_aes(type = "fill", xs, trs, "xfill", "fill", data, g, gt, gby, z, interactive)
 }
 

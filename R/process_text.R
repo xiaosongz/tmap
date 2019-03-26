@@ -134,5 +134,9 @@ postprocess_text <- function(res, g, gt, data, npol, nx, just, interactive, text
 process_text <- function(data, g, fill, gt, gby, z, interactive) {
 	# aesthetics
 	xs <- list(text.size = g$size, text.col = g$col)
-	process_aes(type = "text", xs, c("xtsize", "xtcol"), "text", data, g, gt, gby, z, interactive, fill)
+	
+	## transformation
+	trs <- list(text.size = g$trans.size, text.col = g$trans.col)
+	
+	process_aes(type = "text", xs, trs, c("xtsize", "xtcol"), "text", data, g, gt, gby, z, interactive, fill)
 }

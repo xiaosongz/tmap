@@ -65,5 +65,9 @@ check_raster_specials <- function(x, g, gt, shpcols, data, nx) {
 process_raster <- function(data, g, gt, gby, z, interactive) {
 	## aesthetics
 	xs <- list(raster = g$col)
-	process_aes(type = "raster", xs, "xraster", "raster", data, g, gt, gby, z, interactive)
+	
+	## transformation
+	trs <- list(raster = g$trans)
+	
+	process_aes(type = "raster", xs, trs, "xraster", "raster", data, g, gt, gby, z, interactive)
 }

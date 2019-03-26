@@ -38,7 +38,7 @@ check_num_col <- function(col, g, areas = NULL, areas_unit = NULL) {
 }
 
 
-process_aes <- function(type, xs, xlabels, colname, data, g, gt, gby, z, interactive, fill = NA) {
+process_aes <- function(type, xs, trs, xlabels, colname, data, g, gt, gby, z, interactive, fill = NA) {
 
 	## general variables
 	npol <- nrow(data)
@@ -48,6 +48,16 @@ process_aes <- function(type, xs, xlabels, colname, data, g, gt, gby, z, interac
 	xs <- mapply(function(x, nm) {
 		if (length(x)==1 && is.na(x)[1] && type != "text") gt$aes.colors[nm] else x
 	}, xs, colname, SIMPLIFY = FALSE)
+	
+	trs <- mapply(function(x, tr) {
+		n <- length(x)
+		if (is.null(tr)) {
+			rep(NA, n)
+		} else {
+			rep(tr, n)
+		}
+	}, xs, trs, SIMPLIFY = FALSE)
+	
 	
 	## put symbol shapes in list
 	if (type == "symbol") {
@@ -97,7 +107,6 @@ process_aes <- function(type, xs, xlabels, colname, data, g, gt, gby, z, interac
 		}	
 	}
 	
-		
 
 	## check special inputs
 	
@@ -160,9 +169,9 @@ process_aes <- function(type, xs, xlabels, colname, data, g, gt, gby, z, interac
 	
 	fsnames <- paste0("free.scales.", names(xs))
 	
-	dts <- mapply(function(x, fsname, isc, sby, xv) {
-		process_data(data[, x, drop=FALSE], filter = data$tmapfilter, by=by, free.scales=gby[[fsname]], is.colors=isc, split.by = sby, vary = xv)
-	}, xs, fsnames, is.colors, split.by, xvary, SIMPLIFY = FALSE)
+	dts <- mapply(function(x, tr, fsname, isc, sby, xv) {
+		process_data(data[, x, drop=FALSE], tr, filter = data$tmapfilter, by=by, free.scales=gby[[fsname]], is.colors=isc, split.by = sby, vary = xv)
+	}, xs, trs, fsnames, is.colors, split.by, xvary, SIMPLIFY = FALSE)
 	
 	## impute showNA for first (i.e. color) aesthetic
 	if (nlevels(by)>1) if (is.na(g$showNA) && !gby[[fsnames[[1]]]]) g$showNA <- any(attr(dts[[1]], "anyNA") & !(gby$drop.NA.facets & attr(dts[[1]], "allNA")))
@@ -216,7 +225,7 @@ process_aes <- function(type, xs, xlabels, colname, data, g, gt, gby, z, interac
 	
 	
 
-	res <- mapply(function(x, xname, dt, fsname) {
+	res <- mapply(function(x, tr, xname, dt, fsname) {
 		if (xname %in% c("fill", "line.col", "symbol.col", "raster", "text.col")) {
 			if (xname == "text.col") {
 				text_sel <- get("text_sel", envir = .TMAP_CACHE)
@@ -225,7 +234,7 @@ process_aes <- function(type, xs, xlabels, colname, data, g, gt, gby, z, interac
 				text_sel <- NULL
 			}
 			
-			dcr <- process_dtcol(xname, dt, sel, g, gt, nx, npol, areas=as.numeric(areas), areas_unit=attr(areas, "unit"), text = text, text_sel = text_sel)
+			dcr <- process_dtcol(xname, dt, sel, tr, g, gt, nx, npol, areas=as.numeric(areas), areas_unit=attr(areas, "unit"), text = text, text_sel = text_sel)
 			#if (xname == "fill") assign("dcr_fill", dcr$col, pos = 1) # needed for tm_text
 			assign("col.neutral", dcr$col.neutral, envir = .TMAP_CACHE)
 		} else if (xname == "line.lwd") {
@@ -298,7 +307,7 @@ process_aes <- function(type, xs, xlabels, colname, data, g, gt, gby, z, interac
 
 		c(dcr, list(x=x, legend.show = legend.show, legend.title = legend.title, legend.is.portrait = g[[aname("legend.is.portrait", xname)]], legend.reverse = g[[aname("legend.reverse", xname)]], legend.z = legend.z), hlist)
 
-	}, xs, names(xs), dts, fsnames, SIMPLIFY = FALSE)
+	}, xs, trs, names(xs), dts, fsnames, SIMPLIFY = FALSE)
 	names(res) <- names(xs)
 	
 	

@@ -26,7 +26,7 @@ check_aes_args <- function(g) {
 	NULL
 }
 
-process_col_vector <- function(x, sel, g, gt, reverse) {
+process_col_vector <- function(x, sel, tr, g, gt, reverse) {
 	
 	values <- x
 	#textNA <- ifelse(any(is.na(values[sel])), g$textNA, NA)
@@ -100,6 +100,7 @@ process_col_vector <- function(x, sel, g, gt, reverse) {
 		colsLeg <- num2pal(x, 
 						   var = g$col,
 						   call = g$call,
+						   tr = tr,
 						   g$n, style=g$style, breaks=g$breaks, 
 						   interval.closure=g$interval.closure,
 						   palette = palette,
@@ -140,7 +141,7 @@ process_col_vector <- function(x, sel, g, gt, reverse) {
 }
 
 
-process_dtcol <- function(xname, dtcol, sel=NA, g, gt, nx, npol, areas=NULL, areas_unit=NULL, text = NULL, text_sel = NULL) {
+process_dtcol <- function(xname, dtcol, sel=NA, tr, g, gt, nx, npol, areas=NULL, areas_unit=NULL, text = NULL, text_sel = NULL) {
 	## dtcol = matrix if direct colors are given
 	## dtcol = list in case of disjoint small multiples
 	## dtcol = vector in case of small multiples processed once (i.e. they share the legend)
@@ -197,7 +198,7 @@ process_dtcol <- function(xname, dtcol, sel=NA, g, gt, nx, npol, areas=NULL, are
 		title_append <- vapply(dtcol_title_append, "[[", character(1), "title_append")
 
 		sel <- split(sel, f = rep(1L:nx, each = npol))
-		res <- mapply(process_col_vector, dtcol, sel, gsc, MoreArgs=list(gt=gt, reverse=reverse), SIMPLIFY=FALSE)
+		res <- mapply(process_col_vector, dtcol, sel, gsc, MoreArgs=list(tr=tr, gt=gt, reverse=reverse), SIMPLIFY=FALSE)
 		col <- sapply(res, function(r)r$cols)
 		legend.labels <- lapply(res, function(r)r$legend.labels)
 		legend.values <- lapply(res, function(r)r$legend.values)
@@ -219,7 +220,7 @@ process_dtcol <- function(xname, dtcol, sel=NA, g, gt, nx, npol, areas=NULL, are
 		#if (is.na(sel[1])) sel <- TRUE
 		
 		
-		res <- process_col_vector(dtcol, sel, g, gt, reverse)
+		res <- process_col_vector(dtcol, sel, tr, g, gt, reverse)
 		col <- matrix(res$cols, nrow=npol)
 		legend.labels <- res$legend.labels
 		legend.values <- res$legend.values

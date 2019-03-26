@@ -162,7 +162,11 @@ process_symbols <- function(data, g, gt, gby, z, interactive) {
 	
 	# aesthetics
 	xs <- list(symbol.col = g$col, symbol.size = g$size, symbol.shape = g$shape)
-	process_aes(type = "symbol", xs, c("xcol", "xsize", "xshape"), ifelse(g$are.dots, "dots", "symbols"), data, g, gt, gby, z, interactive)
+	
+	## transformation
+	trs <- list(symbol.col = g$trans.col, symbol.size = g$trans.size, symbol.shape = NA)
+	
+	process_aes(type = "symbol", xs, trs, c("xcol", "xsize", "xshape"), ifelse(g$are.dots, "dots", "symbols"), data, g, gt, gby, z, interactive)
 }
 
 

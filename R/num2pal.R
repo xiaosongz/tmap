@@ -1,6 +1,7 @@
 num2pal <- function(x, 
 					var,
 					call,
+					tr,
 					n = 5,
 					style = "pretty",
 					breaks = NULL,
@@ -201,6 +202,12 @@ num2pal <- function(x,
 		# temporarily stack gradient colors
 		legend.palette <- sapply(legend.palette, paste, collapse="-")
 		
+		# detransform breaks
+		if (tr == "log10") {
+			breaks <- 10^breaks
+			b <- 10^b
+		}
+		
 		# create legend values
 		legend.values <- b
 		
@@ -225,9 +232,15 @@ num2pal <- function(x,
 		attr(legend.palette, "style") <- style
 	} else {
 		
-
+		# detransform breaks
+		if (tr == "log10") {
+			breaks <- 10^breaks
+		}
+		
 		# create legend values
 		legend.values <- breaks[-nbrks]
+		
+		
 		
 		# create legend labels for discrete cases
 		if (is.null(legend.labels)) {

@@ -36,7 +36,11 @@ process_lines <- function(data, g, gt, gby, z, interactive) {
 
 	# aesthetics
 	xs <- list(line.col = g$col, line.lwd = g$lwd)
-	process_aes(type = "line", xs, c("xline", "xlinelwd"), "lines", data, g, gt, gby, z, interactive)
+	
+	## transformation
+	trs <- list(line.col = g$trans.col, line.lwd = g$trans.lwd)
+	
+	process_aes(type = "line", xs, trs, c("xline", "xlinelwd"), "lines", data, g, gt, gby, z, interactive)
 }
 
 

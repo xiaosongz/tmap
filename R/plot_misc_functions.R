@@ -629,7 +629,7 @@ polylineGrob2sfLines <- function(gL) {
 		
 		if (length(gLi$id.lengths) > 1) {
 			ids <- unlist(mapply(rep, 1:length(gLi$id.lengths), gLi$id.lengths))
-			coords <- mapply(cbind, split(as.numeric(gLi$x), ids), split(as.numeric(gLi$y), ids))
+			coords <- mapply(cbind, split(as.numeric(gLi$x), ids), split(as.numeric(gLi$y), ids), SIMPLIFY = FALSE)
 			st_multilinestring(coords)
 		} else {
 			st_linestring(coords)
