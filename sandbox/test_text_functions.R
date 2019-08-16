@@ -71,10 +71,21 @@ qtm(Europe, fill="pop_est", format="Europe", fill.title=expression("Population i
 
 library(grid)
 convertWidth(stringWidth("Population in km2"), "npc")
-convertWidth(stringWidth(expression("Population in " * km2)), "npc")
+convertWidth(stringWidth(expression("Population in " * km^2)), "npc")
 
-convertWidth(stringWidth(paste(expression("Population in " * km2), " ")), "npc")
+convertWidth(stringWidth(paste(expression("Population in " * km^2), " ")), "npc")
+##TODO:
+#	find a way to correctly predict the length of the mathematical symbals a expression object creates
+#	instead of just calculate the lenth of the LATEX like expression code.
+
+text_width_npc(c("Population in mu2km2km2", ""))
+text_width_npc(expression("Population in " * mu[2] * km^2* km^2))
 
 
-text_width_npc(c("Population in km2", ""))
-text_width_npc(expression("Population in " * km2))
+test  <- expression(paste('PM2.5(',mu,'g/', m^{3},')'))
+test1  <- expression('PM2.5('*mu * 'g/' *  m^{3} *')')
+test2  <- "PM2.5 (ug/m3)"
+
+text_width_npc(test)
+text_width_npc(test1)
+text_width_npc(test2)
